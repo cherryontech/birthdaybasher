@@ -6,5 +6,14 @@
 
 module.exports = {
   siteName: 'Gridsome',
-  plugins: []
+  plugins: [],
+  templates: {
+    CardPost: [
+      {
+        path: (node) => {
+          return `/card/${node.path}`
+        }
+      }
+    ]
+  }
 }
