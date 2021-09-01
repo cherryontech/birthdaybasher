@@ -1,21 +1,30 @@
 <template>
-  <div>
-    <h1>Happy birthday, {{ haverNames }}!</h1>
-
+  <Layout>
+    <p class="text-center text-xl md:text-3xl xl:text-4xl">
+      {{ cardDate }}
+    </p>
+    <HeaderOne>Happy birthday, {{ haverNames }}!</HeaderOne>
     <div v-for="wish in $page.cardPost.wishers" :key="wish.id">
       <p>{{ wish.message }}</p>
       <p>~ {{ wish.name }}</p>
     </div>
-  </div>
+  </Layout>
 </template>
 
 <page-query>
 query ($id: ID!) {
   cardPost(id: $id) {
+    carddate {
+      month
+      day
+    }
     havers {
       id
       name
-      date
+      date {
+        day
+        month
+      }
     }
     wishers {
       id
@@ -27,7 +36,12 @@ query ($id: ID!) {
 </page-query>
 
 <script>
+import HeaderOne from "@/components/HeaderOne.vue";
+
 export default {
+  components: {
+    HeaderOne,
+  },
   computed: {
     haverNames() {
       const havers = this.$page.cardPost.havers;
@@ -41,6 +55,19 @@ export default {
       });
 
       return lf.format(names);
+    },
+    cardDate() {
+      const carddate = this.$page.cardPost.carddate;
+      const year = new Date().getFullYear();
+      const date = new Date(`${year}-${carddate.month}-${carddate.day}`);
+
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+
+      return date.toLocaleDateString("en-US", options);
     },
   },
 };
