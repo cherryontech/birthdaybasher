@@ -1,33 +1,56 @@
 <template>
-  <Layout>
-
-    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    <g-image alt="Example image" src="~/favicon.png" width="135" />
-
-    <h1>Hello, world!</h1>
+  <Layout class="bg-gray-200">
+    <HeaderOne>Birthday Basher!</HeaderOne>
 
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur excepturi labore tempore expedita, et iste tenetur suscipit explicabo! Dolores, aperiam non officia eos quod asperiores
+      Welcome to the Birthday Basher. Navigate to your special string to see
+      your birthday card.
     </p>
 
-    <p class="home-links">
-      <a href="https://gridsome.org/docs/" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
-    </p>
-
+    <p>See all the data:</p>
+    <code>{{ $page.cardposts }}</code>
   </Layout>
 </template>
 
-<script>
-export default {
-  metaInfo: {
-    title: 'Hello, world!'
+<page-query>
+query Cardposts {
+  cardposts: allCardPost {
+    totalCount
+    edges {
+      node {
+        carddate {
+          month
+          day
+        }
+        havers {
+          id
+          name
+          date {
+            month
+            day
+          }
+        }
+        wishers {
+          id
+          name
+          message
+        }
+        path
+      }
+    }
   }
 }
-</script>
+</page-query>
 
-<style>
-.home-links a {
-  margin-right: 1rem;
-}
-</style>
+<script>
+import HeaderOne from "@/components/HeaderOne.vue";
+
+export default {
+  components: {
+    HeaderOne,
+  },
+  metaInfo: {
+    title: "Hello, world!",
+  },
+};
+</script>
