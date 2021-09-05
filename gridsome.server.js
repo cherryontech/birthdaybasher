@@ -18,7 +18,7 @@ module.exports = function(api) {
 
   api.loadSource(async (actions) => {
     const { data: cards } = await axios.get(
-      "https://gist.githubusercontent.com/novellac/029844c63ceed954e5c508b593c06e51/raw/cdc5bf3bb1ca7a59ba857601bc94dcf4ecd1da8a/allCards.json"
+      "https://gist.githubusercontent.com/novellac/029844c63ceed954e5c508b593c06e51/raw/66be1f14b3cf9ca21db38ccd5121feeaf4c56c96/allCards.json"
     );
 
     const collection = actions.addCollection({
@@ -27,6 +27,7 @@ module.exports = function(api) {
 
     for (const card of cards.data) {
       collection.addNode({
+        carddate: card.carddate,
         path: card.path,
         havers: card.havers,
         wishers: card.wishers,

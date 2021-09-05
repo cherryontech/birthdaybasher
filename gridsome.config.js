@@ -5,8 +5,10 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'Gridsome',
-  plugins: [],
+  siteName: 'Birthday Basher!',
+  plugins: [
+    { use: "gridsome-plugin-tailwindcss" }
+  ],
   templates: {
     CardPost: [
       {
