@@ -1,12 +1,12 @@
 <template>
   <Layout>
-    <p class="text-center text-xl md:text-3xl xl:text-4xl">
+    <BaseDate>
       {{ cardDate }}
-    </p>
-    <HeaderOne>Happy birthday, {{ haverNames }}!</HeaderOne>
+    </BaseDate>
+    <BaseHeader>Happy birthday, {{ haverNames }}!</BaseHeader>
     <div v-for="wish in $page.cardPost.wishers" :key="wish.id">
-      <p>{{ wish.message }}</p>
-      <p>~ {{ wish.name }}</p>
+      <BaseParagraph>{{ wish.message }}</BaseParagraph>
+      <BaseHeader :level="2">~ {{ wish.name }}</BaseHeader>
     </div>
   </Layout>
 </template>
@@ -36,39 +36,43 @@ query ($id: ID!) {
 </page-query>
 
 <script>
-import HeaderOne from "@/components/HeaderOne.vue";
+import BaseHeader from '@/components/BaseHeader.vue'
+import BaseParagraph from '@/components/BaseParagraph.vue'
+import BaseDate from '@/components/BaseDate.vue'
 
 export default {
   components: {
-    HeaderOne,
+    BaseDate,
+    BaseHeader,
+    BaseParagraph
   },
   computed: {
-    haverNames() {
-      const havers = this.$page.cardPost.havers;
+    haverNames () {
+      const havers = this.$page.cardPost.havers
 
       // Supported everywhere except IE
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat
-      const lf = new Intl.ListFormat("en");
+      const lf = new Intl.ListFormat('en')
 
-      let names = havers.map(function(haver) {
-        return haver.name;
-      });
+      let names = havers.map(function (haver) {
+        return haver.name
+      })
 
-      return lf.format(names);
+      return lf.format(names)
     },
-    cardDate() {
-      const carddate = this.$page.cardPost.carddate;
-      const year = new Date().getFullYear();
-      const date = new Date(`${year}-${carddate.month}-${carddate.day}`);
+    cardDate () {
+      const carddate = this.$page.cardPost.carddate
+      const year = new Date().getFullYear()
+      const date = new Date(`${year}-${carddate.month}-${carddate.day}`)
 
       const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }
 
-      return date.toLocaleDateString("en-US", options);
-    },
-  },
-};
+      return date.toLocaleDateString('en-US', options)
+    }
+  }
+}
 </script>
