@@ -1,6 +1,6 @@
 <template>
   <Layout class="bg-gray-200">
-    <HeaderOne>Birthday Basher!</HeaderOne>
+    <BaseHeader>Birthday Basher!</BaseHeader>
 
     <p>
       Welcome to the Birthday Basher. Navigate to your special string to see
@@ -43,11 +43,11 @@ query Cardposts {
 </page-query>
 
 <script>
-import HeaderOne from "@/components/HeaderOne.vue";
+import BaseHeader from "@/components/BaseHeader.vue";
 
 export default {
   components: {
-    HeaderOne,
+    BaseHeader,
   },
   metaInfo: {
     title: "Hello, world!",
